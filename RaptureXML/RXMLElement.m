@@ -198,6 +198,22 @@
     return [self.text doubleValue];
 }
 
+-(NSMutableDictionary*) allAttributes{
+    
+    NSMutableDictionary *dictAttributes = [[NSMutableDictionary alloc] init];
+    
+    for(xmlAttrPtr attribute = node_->properties; attribute != NULL; attribute = attribute->next){
+        
+        xmlChar* value = xmlNodeListGetString(node_->doc, attribute->children, YES);
+        
+        [dictAttributes setObject:[NSString stringWithUTF8String:(const char *)value]
+                           forKey:[NSString stringWithUTF8String:(const char *)attribute->name]];
+        
+        xmlFree(value);
+    }
+    return dictAttributes;
+}
+
 - (NSString *)attribute:(NSString *)attName {
     NSString *ret = nil;
     const unsigned char *attCStr = xmlGetProp(node_, (const xmlChar *)[attName cStringUsingEncoding:NSUTF8StringEncoding]);        

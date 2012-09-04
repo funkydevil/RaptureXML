@@ -53,6 +53,8 @@
 + (id)elementFromXMLData:(NSData *)data;
 + (id)elementFromXMLNode:(xmlNodePtr)node;
 
+
+- (NSMutableDictionary*) allAttributes;
 - (NSString *)attribute:(NSString *)attributeName;
 - (NSString *)attribute:(NSString *)attributeName inNamespace:(NSString *)ns;
 
