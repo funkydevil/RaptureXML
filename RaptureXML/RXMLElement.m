@@ -335,11 +335,12 @@
 
 - (NSArray *)children:(NSString *)tag {
     const xmlChar *tagC = (const xmlChar *)[tag cStringUsingEncoding:NSUTF8StringEncoding];
+    const xmlChar *wild = (const xmlChar *)[@"*" cStringUsingEncoding:NSUTF8StringEncoding];
     NSMutableArray *children = [NSMutableArray array];
     xmlNodePtr cur = node_->children;
-
+    
     while (cur != nil) {
-        if (cur->type == XML_ELEMENT_NODE && !xmlStrcmp(cur->name, tagC)) {
+        if (cur->type == XML_ELEMENT_NODE && (!xmlStrcmp(cur->name, tagC)|| !xmlStrcmp(wild, tagC))) {
             [children addObject:[RXMLElement elementFromXMLNode:cur]];
         }
         
